@@ -38,6 +38,8 @@ const COMPONENT_MAP: Record<string, Type<unknown>> = {
   styleUrl: './home.scss',
 })
 export class HomeComponent implements OnInit {
+  frozen = false;
+
   options: GridsterConfig = {
     gridType: GridType.Fit,
     compactType: CompactType.None,
@@ -51,6 +53,16 @@ export class HomeComponent implements OnInit {
     itemChangeCallback: () => this.saveLayout(),
     itemResizeCallback: () => this.saveLayout(),
   };
+
+  toggleFreeze(): void {
+    this.frozen = !this.frozen;
+    this.options = {
+      ...this.options,
+      draggable: { enabled: !this.frozen },
+      resizable: { enabled: !this.frozen },
+      displayGrid: this.frozen ? DisplayGrid.None : DisplayGrid.OnDragAndResize,
+    };
+  }
 
   dashboardItems: DashboardItem[] = [];
 

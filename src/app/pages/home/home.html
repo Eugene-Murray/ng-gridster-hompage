@@ -9,15 +9,27 @@
 
     <!-- Toolbar -->
     <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
-      <span class="fw-medium me-1">Add widget:</span>
-      @for (opt of availableToAdd; track opt.key) {
-        <button class="btn btn-sm btn-outline-secondary" (click)="addWidget(opt.key)">
-          + {{ opt.label }}
+      @if (!frozen) {
+        <span class="fw-medium me-1">Add widget:</span>
+        @for (opt of availableToAdd; track opt.key) {
+          <button class="btn btn-sm btn-outline-secondary" (click)="addWidget(opt.key)">
+            + {{ opt.label }}
+          </button>
+        }
+      }
+      <button
+        class="btn btn-sm ms-auto"
+        [class.btn-warning]="!frozen"
+        [class.btn-success]="frozen"
+        (click)="toggleFreeze()"
+      >
+        {{ frozen ? '&#x1F513; Unfreeze' : '&#x1F512; Freeze' }}
+      </button>
+      @if (!frozen) {
+        <button class="btn btn-sm btn-outline-danger" (click)="clearLayout()">
+          Clear all
         </button>
       }
-      <button class="btn btn-sm btn-outline-danger ms-auto" (click)="clearLayout()">
-        Clear all
-      </button>
     </div>
 
     <!-- Gridster -->
@@ -27,11 +39,13 @@
           <gridster-item [item]="item.gridItem">
             <div class="widget-header">
               <span class="widget-label">{{ item.label }}</span>
-              <button
-                class="btn-close-widget"
-                aria-label="Remove widget"
-                (click)="removeWidget(item)"
-              >&times;</button>
+              @if (!frozen) {
+                <button
+                  class="btn-close-widget"
+                  aria-label="Remove widget"
+                  (click)="removeWidget(item)"
+                >&times;</button>
+              }
             </div>
             <div class="widget-body">
               <ng-container *ngComponentOutlet="item.component" />
