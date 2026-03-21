@@ -15,7 +15,7 @@
     <div class="collapse navbar-collapse" id="mainNav">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Features</a>
@@ -25,6 +25,9 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Examples</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/dynamic" routerLinkActive="active">Dynamic</a>
         </li>
         <li class="nav-item">
           <a
@@ -58,69 +61,7 @@
 </header>
 
 <main>
-  <section id="features" class="py-5">
-    <div class="container">
-      <h2 class="text-center mb-5 fw-semibold">Features</h2>
-      <div class="row g-4">
-        <div class="col-sm-6 col-lg-3">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-              <div class="fs-1 mb-3">&#x1F4F1;</div>
-              <h5 class="card-title">Responsive</h5>
-              <p class="card-text text-muted">
-                Fully responsive grid that adapts to any screen size out of the box.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-              <div class="fs-1 mb-3">&#x1F4E6;</div>
-              <h5 class="card-title">Easy to Use</h5>
-              <p class="card-text text-muted">
-                Simple API to integrate drag, resize, and reorder into your Angular app.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-              <div class="fs-1 mb-3">&#x2699;&#xFE0F;</div>
-              <h5 class="card-title">Configurable</h5>
-              <p class="card-text text-muted">
-                Extensive options for grid behaviour, compaction, and item constraints.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-              <div class="fs-1 mb-3">&#x26A1;</div>
-              <h5 class="card-title">Performant</h5>
-              <p class="card-text text-muted">
-                Optimised change detection keeps your dashboard fast even at scale.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-light py-5">
-    <div class="container text-center">
-      <h2 class="fw-semibold mb-3">Ready to build your dashboard?</h2>
-      <p class="text-muted mb-4">
-        Install ng-gridster and start dragging widgets in minutes.
-      </p>
-      <code class="d-inline-block bg-white border rounded px-4 py-2 fs-6">
-        npm install angular-gridster2
-      </code>
-    </div>
-  </section>
+  <router-outlet />
 </main>
 
 <footer class="bg-dark text-white-50 py-4 mt-auto">
@@ -129,4 +70,4 @@
   </div>
 </footer>
 
-<router-outlet />
+
