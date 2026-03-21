@@ -1,3 +1,49 @@
+<!-- Live Dashboard Demo -->
+<section class="py-5">
+  <div class="container">
+    <h2 class="fw-semibold mb-2">Live Dashboard Demo</h2>
+    <p class="text-muted mb-4">
+      Drag to reorder, resize widgets, and add or remove components. Your layout is saved to
+      <code>localStorage</code> automatically.
+    </p>
+
+    <!-- Toolbar -->
+    <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+      <span class="fw-medium me-1">Add widget:</span>
+      @for (opt of availableToAdd; track opt.key) {
+        <button class="btn btn-sm btn-outline-secondary" (click)="addWidget(opt.key)">
+          + {{ opt.label }}
+        </button>
+      }
+      <button class="btn btn-sm btn-outline-danger ms-auto" (click)="clearLayout()">
+        Clear all
+      </button>
+    </div>
+
+    <!-- Gridster -->
+    <div class="gridster-wrapper">
+      <gridster [options]="options">
+        @for (item of dashboardItems; track item.id) {
+          <gridster-item [item]="item.gridItem">
+            <div class="widget-header">
+              <span class="widget-label">{{ item.label }}</span>
+              <button
+                class="btn-close-widget"
+                aria-label="Remove widget"
+                (click)="removeWidget(item)"
+              >&times;</button>
+            </div>
+            <div class="widget-body">
+              <ng-container *ngComponentOutlet="item.component" />
+            </div>
+          </gridster-item>
+        }
+      </gridster>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
 <section id="features" class="py-5">
   <div class="container">
     <h2 class="text-center mb-5 fw-semibold">Features</h2>
@@ -61,3 +107,4 @@
     </code>
   </div>
 </section>
+
