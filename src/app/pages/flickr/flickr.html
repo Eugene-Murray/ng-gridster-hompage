@@ -1,0 +1,83 @@
+<div class="container py-4">
+
+  <!-- Page header -->
+  <div class="mb-4">
+    <h1 class="h3 fw-bold mb-1">Flickr Photoset</h1>
+    <p class="text-muted mb-0">Photos from my Flickr collection</p>
+  </div>
+
+  <!-- Loading -->
+  @if (loading()) {
+    <div class="d-flex justify-content-center align-items-center py-5">
+      <div class="spinner-border text-secondary" role="status">
+        <span class="visually-hidden">Loading…</span>
+      </div>
+      <span class="ms-3 text-muted">Loading photos…</span>
+    </div>
+  }
+
+  <!-- Error -->
+  @if (error()) {
+    <div class="alert alert-danger d-flex align-items-center" role="alert">
+      <svg xmlns="http://www.w3.org/2000/svg" class="bi flex-shrink-0 me-2" width="20" height="20" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+        <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+      </svg>
+      {{ error() }}
+    </div>
+  }
+
+  <!-- Photo grid -->
+  @if (!loading() && !error() && photos().length > 0) {
+    <div class="row g-3">
+      @for (photo of photos(); track photo.id) {
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+          <a
+            [href]="flickrPhotoUrl(photo.id)"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="photo-card card h-100 text-decoration-none border-0 shadow-sm"
+          >
+            <div class="photo-img-wrapper">
+              <img
+                [src]="photo.url_z || photo.url_b"
+                [alt]="photo.title"
+                [title]="photo.title"
+                class="photo-img"
+                loading="lazy"
+              />
+            </div>
+            <div class="card-body p-2">
+              <p class="card-title mb-1 small fw-semibold text-truncate text-dark" [title]="photo.title">
+                {{ photo.title || 'Untitled' }}
+              </p>
+              <div class="d-flex align-items-center justify-content-between">
+                @if (photo.owner_name) {
+                  <span class="badge bg-secondary text-truncate owner-badge" [title]="photo.owner_name">
+                    {{ photo.owner_name }}
+                  </span>
+                }
+                @if (photo.datetaken) {
+                  <small class="text-muted ms-auto">{{ photo.datetaken | date:'mediumDate' }}</small>
+                }
+              </div>
+            </div>
+          </a>
+        </div>
+      }
+    </div>
+    <p class="text-muted small mt-3">{{ photos().length }} photo{{ photos().length !== 1 ? 's' : '' }} loaded</p>
+  }
+
+  <!-- Empty state -->
+  @if (!loading() && !error() && photos().length === 0) {
+    <div class="text-center py-5 text-muted">
+      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-images mb-3 d-block mx-auto opacity-25" viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+        <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z"/>
+      </svg>
+      <p class="mb-0">No photos found in this photoset.</p>
+    </div>
+  }
+
+</div>

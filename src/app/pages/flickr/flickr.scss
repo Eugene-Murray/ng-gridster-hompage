@@ -1,0 +1,31 @@
+.photo-card {
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important;
+  }
+}
+
+.photo-img-wrapper {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background-color: #f0f0f0;
+}
+
+.photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.owner-badge {
+  max-width: 100px;
+}
+
+.photo-card:hover .photo-img {
+  transform: scale(1.04);
+}
