@@ -34,7 +34,7 @@ interface FlickrPhotosetsResponse {
   photosets: {
     photoset: Array<{
       id: string;
-      title: Array<{ _content: string }>;
+      title: { _content: string };
       photos: number;
     }>;
   };
@@ -62,7 +62,7 @@ export class FlickrService {
         map(response =>
           (response.photosets?.photoset ?? []).map(ps => ({
             id: ps.id,
-            title: ps.title[0]?._content ?? ps.id,
+            title: ps.title._content ?? ps.id,
             photos: ps.photos
           }))
         )
